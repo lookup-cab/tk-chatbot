@@ -194,7 +194,7 @@ class ClientApp:
             self.master.title('(-.-)zZ')
  
 if __name__ == "__main__":
-    wtf = bsave.PersistentStorage("static") #send to server every message
+    wtf = bsave.PersistentStorage("static", ["model","role","content","session_id","conversation_id"]) #send to server every message
     root = tk.Tk()
 
     app = ClientApp(root)

@@ -6,7 +6,7 @@ class PersistentStorage():
     It relies on simple text file storage.
     """
 
-    def __init__(self, filename):
+    def __init__(self, filename, dictionaryKeys):
         """
         Initializes the PersistentDictionary with a filename.
 
@@ -14,6 +14,7 @@ class PersistentStorage():
             filename: The name of the file to store the dictionary in.
         """
         self.filename = filename
+        self.keys = dictionaryKeys
 
     def save(self, dictionary):
         """
@@ -64,19 +65,11 @@ class PersistentStorage():
                         try:
                             dictionary = eval(line)  # Use eval (with caution - see notes below)
                             if isinstance(dictionary, dict):
-                                if (not dictionary["model"]):
-                                    raise ValueError("Not compatible file.")
-                                elif (not dictionary["role"]):
-                                    raise ValueError("Not compatible file.")
-                                elif (not dictionary["content"]):
-                                    raise ValueError("Not compatible file.")
-                                elif (not dictionary["session_id"]):
-                                    raise ValueError("Not compatible file.")
-                                elif (not dictionary["conversation_id"]):
-                                    raise ValueError("Not compatible file.")
-                                elif (dictionary["model"] and dictionary ["role"] and dictionary ["content"] and dictionary ["session_id"] and dictionary ["conversation_id"]):
-                                    dictionaries.append(dictionary)
-                                    
+                                for x in self.keys:
+                                    if (not dictionary[x]):
+                                        raise ValueError("Not compatible file.")
+                                    elif (dictionary[x]):
+                                        dictionaries.append(dictionary[x])
                             else:
                                 print(f"Warning: Line '{line}' does not represent a dictionary. Skipping.")
 
