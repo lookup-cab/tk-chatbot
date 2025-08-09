@@ -114,6 +114,7 @@ class ClientApp:
         j=0
         
         self.session_window = tk.Toplevel(self.master)
+        #self.session_window.grab_set()
         self.session_window.title("( 0-0)_/")
         #self.session_window.geometry("300x400+10+10")
         self.session_window_frame = tk.Frame(self.session_window, width=400, height=20)
@@ -193,7 +194,7 @@ class ClientApp:
             self.master.title('(-.-)zZ')
  
 if __name__ == "__main__":
-    wtf = bsave.PersistentStorage("static", ["model","role","content","session_id","conversation_id"]) #send to server every message
+    wtf = bsave.PersistentStorage("static") #send to server every message
     root = tk.Tk()
 
     app = ClientApp(root)
